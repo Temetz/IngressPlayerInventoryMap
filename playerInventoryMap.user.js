@@ -2,7 +2,7 @@
 // @id playerInventory
 // @name IITC Plugin: Inventory keys in map
 // @category Layer
-// @version 0.0.1
+// @version 0.0.2
 // @namespace	https://github.com/Temetz/IngressPlayerInventoryMap
 // @downloadURL	https://github.com/Temetz/IngressPlayerInventoryMap/raw/main/playerInventoryMap.user.js
 // @updateURL	https://github.com/Temetz/IngressPlayerInventoryMap/raw/main/playerInventoryMap.user.js
@@ -49,10 +49,11 @@ function wrapper(plugin_info) {
     }
 
     function latlngFromHex(location){
-        const [latHex, lonHex] = location.split(',')
+        const [latHex, lngHex] = location.split(',')
+
         return {
-            lat: parseInt('0x'+latHex)/1000000,
-            lng: parseInt('0x'+lonHex)/1000000,
+            lat: ~~parseInt('0x'+latHex)/1000000,
+            lng: ~~parseInt('0x'+lngHex)/1000000,
         }
     }
 
