@@ -33,6 +33,7 @@ function wrapper(plugin_info) {
 
     const SIZE = 14
     thisPlugin.portalkeyicon = svgToIcon(getSVGString(SIZE, '#9538ff'), SIZE);
+    thisPlugin.keylist = [];
 
     function getSVGString(size, color) {
         return `<svg width="${(size+4)}" height="${(size+4)}" xmlns="http://www.w3.org/2000/svg"><circle stroke="${color}" stroke-width="4" fill="transparent" cx="${(size+4)/2}" cy="${(size+4)/2}" r="${(size/2)}"/></svg>`;
@@ -89,6 +90,7 @@ function wrapper(plugin_info) {
         console.log('INVENTORY: Capsuled keys only', capsuleKeys)
 
         const keys = [].concat(...inventoryKeys, ...capsuleKeys)
+        thisPlugin.keylist = keys
         console.log('INVENTORY: Keys full', keys)
         for(const portal of keys){
             drawMarkerOnPortal(portal)
