@@ -2,7 +2,7 @@
 // @id playerInventory
 // @name IITC Plugin: Inventory keys in map
 // @category Layer
-// @version 0.0.2
+// @version 0.0.3
 // @namespace	https://github.com/Temetz/IngressPlayerInventoryMap
 // @downloadURL	https://github.com/Temetz/IngressPlayerInventoryMap/raw/main/playerInventoryMap.user.js
 // @updateURL	https://github.com/Temetz/IngressPlayerInventoryMap/raw/main/playerInventoryMap.user.js
@@ -26,7 +26,7 @@ function wrapper(plugin_info) {
     plugin_info.buildName = "PlayerInventory";
 
     // Datetime-derived version of the plugin
-    plugin_info.dateTimeVersion = "202102070043";
+    plugin_info.dateTimeVersion = "202102100204";
 
     // ID/name of the plugin
     plugin_info.pluginId = "playerinventory";
@@ -113,6 +113,13 @@ function wrapper(plugin_info) {
         thisPlugin.layerGroup = new L.LayerGroup();
         window.addLayerGroup('Keys in Inventory', thisPlugin.layerGroup, false);
         $('#toolbox').append('<a onclick="window.plugin.PlayerInventory.requestInventory()">Load Inventory</a>');
+        
+        window.addHook('portalDetailsUpdated', function(data) {
+           const portalFromKeys = thisPlugin.keylist.find(k => k.portalGuid === data.guid)
+           if (portalFromKeys) {
+               $('#randdetails>tbody').append(`<tr style="color: #ff7315;"><td colspan="4" style="text-align: center;">Keys in inventory: ${portalFromKeys ? portalFromKeys.count : 0}</td></tr>`)
+           }
+        });
     }
 
     setup.info = plugin_info; //add the script info data to the function as a property
